@@ -1,0 +1,61 @@
+{
+    "openapi": "3.0.3",
+    "info": { "title": "NASA Explorer API", "version": "1.0.0" },
+    "servers": [{ "url": "/" }],
+    "paths": {
+      "/api/apod": {
+        "get": {
+          "summary": "Astronomy Picture of the Day",
+          "parameters": [
+            { "name": "date", "in": "query", "schema": { "type": "string", "example": "2025-08-10" } },
+            { "name": "hd", "in": "query", "schema": { "type": "boolean" } }
+          ],
+          "responses": { "200": { "description": "OK" } }
+        }
+      },
+      "/api/neo/stats": {
+        "get": {
+          "summary": "NEO stats for charts",
+          "parameters": [
+            { "name": "start", "in": "query", "required": true, "schema": { "type": "string", "example": "2025-08-05" } },
+            { "name": "end", "in": "query", "schema": { "type": "string", "example": "2025-08-12" } }
+          ],
+          "responses": { "200": { "description": "OK" } }
+        }
+      },
+      "/api/mars/photos": {
+        "get": {
+          "summary": "Mars rover photos",
+          "parameters": [
+            { "name": "rover", "in": "query", "schema": { "type": "string", "enum": ["curiosity","opportunity","spirit"], "default": "curiosity" } },
+            { "name": "earth_date", "in": "query", "schema": { "type": "string" } },
+            { "name": "sol", "in": "query", "schema": { "type": "string" } },
+            { "name": "camera", "in": "query", "schema": { "type": "string" } },
+            { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } }
+          ],
+          "responses": { "200": { "description": "OK" } }
+        }
+      },
+      "/api/epic": {
+        "get": {
+          "summary": "EPIC images by date",
+          "parameters": [
+            { "name": "date", "in": "query", "required": true, "schema": { "type": "string", "example": "2025-08-11" } }
+          ],
+          "responses": { "200": { "description": "OK" } }
+        }
+      },
+      "/api/library/search": {
+        "get": {
+          "summary": "NASA Image and Video Library search",
+          "parameters": [
+            { "name": "q", "in": "query", "required": true, "schema": { "type": "string", "example": "nebula" } },
+            { "name": "media_type", "in": "query", "schema": { "type": "string", "example": "image" } },
+            { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } }
+          ],
+          "responses": { "200": { "description": "OK" } }
+        }
+      }
+    }
+  }
+  

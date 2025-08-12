@@ -1,0 +1,43 @@
+{
+    "name": "nasa-explorer-api",
+    "version": "1.0.0",
+    "private": false,
+    "publisher": "Mudit Satija",
+    "engines": {
+        "node": ">=20"
+    },
+    "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "build": "tsc -p tsconfig.json",
+        "start": "node dist/index.js",
+        "typecheck": "tsc --noEmit",
+        "pm2:start": "pm2 start ecosystem.config.cjs",
+        "pm2:reload": "pm2 reload nasa-explorer-api",
+        "pm2:stop": "pm2 stop nasa-explorer-api",
+        "pm2:logs": "pm2 logs nasa-explorer-api"
+    },
+    "dependencies": {
+        "compression": "^1.7.4",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "express-rate-limit": "^7.4.0",
+        "helmet": "^7.1.0",
+        "ioredis": "^5.4.1",
+        "pino": "^9.2.0",
+        "pino-http": "^9.0.0",
+        "swagger-ui-express": "^5.0.0",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@types/compression": "^1.8.1",
+        "@types/cors": "^2.8.17",
+        "@types/express": "^4.17.21",
+        "@types/node": "^20.14.9",
+        "@types/swagger-ui-express": "^4.1.8",
+        "pino-pretty": "^11.2.2",
+        "pm2": "^5.4.2",
+        "tsx": "^4.15.7",
+        "typescript": "^5.5.4"
+    }
+}
