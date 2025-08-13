@@ -1,0 +1,190 @@
+:root {
+  --bg: #070b17;
+  --fg: #e6e9ef;
+  --muted: #a9b0c3;
+  --card: rgba(255, 255, 255, .06);
+  --card-border: rgba(255, 255, 255, .12);
+  --chip: rgba(255, 255, 255, .08);
+}
+
+:root[data-theme="light"] {
+  --bg: #f7f9fc;
+  --fg: #0b1220;
+  --muted: #5f6b85;
+  --card: rgba(10, 20, 40, .04);
+  --card-border: rgba(10, 20, 40, .12);
+  --chip: rgba(10, 20, 40, .06);
+}
+
+* {
+  box-sizing: border-box
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px
+}
+
+.pane.active {
+  display: block
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 16px;
+  backdrop-filter: blur(8px);
+}
+
+.h2 {
+  font-size: 20px;
+  margin: 0 0 4px
+}
+
+.sub {
+  font-size: 12px;
+  color: var(--muted)
+}
+
+.muted {
+  color: var(--muted)
+}
+
+.small {
+  font-size: 12px
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center
+}
+
+.between {
+  justify-content: space-between
+}
+
+.actions.wrap {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap
+}
+
+.input,
+.select {
+  background: var(--chip);
+  border: 1px solid var(--card-border);
+  color: inherit;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.grid {
+  display: grid
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px
+}
+
+@media(max-width:860px) {
+  .grid-2 {
+    grid-template-columns: 1fr
+  }
+}
+
+.btn {
+  background: var(--chip);
+  border: 1px solid var(--card-border);
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: inherit;
+  cursor: pointer
+}
+
+.mt-16 {
+  margin-top: 16px
+}
+
+.info-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #4ba3ff, #003366);
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1; /* fixes vertical misalignment */
+  box-shadow: 0 0 6px rgba(75, 163, 255, 0.8);
+  flex-shrink: 0; /* prevents resizing in flex containers */
+}
+
+.info-btn:hover {
+  box-shadow: 0 0 10px rgba(75, 163, 255, 1);
+}
+
+.info-btn::after {
+  content: attr(data-info);
+  position: absolute;
+  bottom: calc(100% + 8px); /* space above button */
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 6px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 9999; /* keep above all */
+}
+
+.info-btn::before {
+  content: "";
+  position: absolute;
+  bottom: 100%; /* right at top edge of button */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent rgba(0, 0, 0, 0.85) transparent;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 9999;
+}
+
+.info-btn:hover::after,
+.info-btn:hover::before {
+  opacity: 1;
+}
+
+/* IMPORTANT: Ensure parent doesn't clip tooltip */
+.info-btn {
+  overflow: visible !important;
+}
+
+.margin-btm-12 {
+  margin-bottom: 12px;
+}
+
+.margin-right-5 {
+  margin-right: 5px;
+}
