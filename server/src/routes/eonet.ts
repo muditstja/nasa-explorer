@@ -9,19 +9,20 @@ const router = Router();
 
 const Query = z.object({
   query: z.object({
-    date: z.string().optional(), // YYYY-MM-DD
-    hd: z.coerce.boolean().optional()
+    days: z.coerce.number().optional(),
+    limit: z.coerce.number().optional(),
+    status: z.enum(['open', 'close']).default('open')
   })
 });
 
 router.get('/', validate(Query), async (req, res, next) => {
-  const { date, hd } = (req as any).validated.query as { date?: string; hd?: boolean };
-  const key = `apod:${date ?? 'today'}:${hd ? '1' : '0'}`;
+  const { status, days, limit  } = (req as any).validated.query as { days: number; limit: number; status: string };
+  const key = `neo:${days ?? 7}:${limit ?? 100}:${status}`;
   try {
     const data = await withCache(key, () =>
-      nasaFetch<any>(urls.apod(), { searchParams: { date, hd } })
+      nasaFetch<any>(urls.eonetSearch(status, days, limit))
     );
-    res.json({ ok: true, data });
+    res.json(data);
   } catch (e) {
     next(e);
   }

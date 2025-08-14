@@ -22,22 +22,23 @@ export const urls = {
   marsPhotos: (rover: string) => `${BASE.mars}/rovers/${rover}/photos`,
   epicByDate: (date: string) => `${BASE.epic}/date/${date}`,
   librarySearch: () => `${BASE.library}/search`,
-  eonentSearch: (status: string, days: number, limit: number) => `${BASE.events}/events?status=${status}&days=${days}&limit=${limit}`
+  eonetSearch: (status: string, days: number, limit: number) => `${BASE.events}/events?status=${status}&days=${days}&limit=${limit}`
 };
 
 export async function nasaFetch<T>(url: string, opts: FetchOpts = {}): Promise<T> {
   const controller = new AbortController();
-  const to = setTimeout(() => controller.abort(), opts.timeoutMs ?? 10000);
+  const to = setTimeout(() => controller.abort(), opts.timeoutMs ?? 19000);
 
   const searchParams = new URLSearchParams();
   searchParams.set('api_key', config.nasaKey);
   for (const [k, v] of Object.entries(opts.searchParams ?? {})) {
     if (v !== undefined && v !== null && v !== '') searchParams.set(k, String(v));
   }
-  const full = url.includes('?') ? `${url}&${searchParams.toString()}` : `${url}?${searchParams.toString()}`;
+  const finalUrl = url.includes('?') ? `${url}&${searchParams.toString()}` : `${url}?${searchParams.toString()}`;
 
   try {
-    const res = await fetch(full, {
+    console.log("before hit = ", finalUrl);
+    const res = await fetch(finalUrl, {
       signal: opts.signal ?? controller.signal,
       headers: { 'user-agent': 'nasa-explorer/1.0', ...(opts.headers ?? {}) }
     });

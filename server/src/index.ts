@@ -10,6 +10,7 @@ import apod from './routes/apod';
 import neo from './routes/neo';
 import mars from './routes/mars';
 import epic from './routes/epic';
+import eonet from './routes/eonet';
 import { errorHandler, notFound } from './middleware/errors';
 import swaggerUi from 'swagger-ui-express';
 import openapi from './openapi.json';
@@ -45,6 +46,7 @@ app.use('/api/apod', apod);
 app.use('/api/neo', neo);
 app.use('/api/mars', mars);
 app.use('/api/epic', epic);
+app.use('/api/events', eonet);
 
 app.use(notFound);
 app.use(errorHandler);

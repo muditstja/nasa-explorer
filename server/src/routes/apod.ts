@@ -15,12 +15,15 @@ const Query = z.object({
 });
 
 router.get('/', validate(Query), async (req, res, next) => {
+
   const { date, hd } = (req as any).validated.query as { date?: string; hd?: boolean };
   const key = `apod:${date ?? 'today'}:${hd ? '1' : '0'}`;
+
   try {
     const data = await withCache(key, () =>
-      nasaFetch<any>(urls.apod(), { searchParams: { date, hd } })
+      nasaFetch<any>(urls.apod(), { searchParams: { date } })
     );
+
     res.json({ ok: true, data });
   } catch (e) {
     next(e);

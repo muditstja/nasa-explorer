@@ -20,6 +20,11 @@ export async function fetchMars(params: any) {
   return data
 }
 
+export async function fetchEonet(params: any) {
+    const {data} = await api.get('/api/events', {params});
+    return data;
+}
+
 export async function fetchDonki() {
     const {data} = await api.get('/api/donki?days=7&type=ALL')
     return data;

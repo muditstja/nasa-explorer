@@ -2,24 +2,6 @@ import { useQuery } from '@tanstack/react-query'
 import {fetchMars} from '../lib/api'
 import { useState } from 'react'
 
-// export default function Mars() {
-//   const [date, setDate] = useState('2015-06-03')
-//   const q = useQuery({ queryKey: ['mars', date], queryFn: async () => (await api.get(`/mars?earth_date=${date}`)).data })
-//   return (
-//     <section className="card">
-//       <div className="row" style={{ justifyContent: 'space-between' }}>
-//         <div><h3>Mars Rover Photos</h3><p className="muted">Browse by Earth date.</p></div>
-//         <div className="row"><input className="input" type="date" value={date} onChange={e => setDate(e.target.value)} /></div>
-//       </div>
-//       {q.isLoading && <div className="skeleton" style={{ height: 180 }} />}
-//       {q.isError && <div className="muted">Failed to load.</div>}
-//       <div className="grid g2">
-//         {(q.data?.photos || []).slice(0, 4).map((p: any) => (<div key={p.id} className="skeleton" style={{ height: 140 }} />))}
-//       </div>
-//     </section>
-//   )
-// }
-
 export default function Mars() {
   const [rover, setRover] = useState<'curiosity'|'opportunity'|'spirit'>('curiosity')
   const [camera, setCamera] = useState<string>('')

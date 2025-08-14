@@ -14,7 +14,9 @@ const memory = new LRU<string, string>({ max: 1000, ttl: config.cacheTtl * 1000 
 
 export async function cacheGet(key: string): Promise<string | null> {
   if (redis) {
-    try { return (await redis.get(key)) as string | null; } catch { /* fall through */ }
+    try { 
+      return (await redis.get(key)) as string | null; 
+    } catch { /* fall through */ }
   }
   const v = memory.get(key);
   return v ?? null;
