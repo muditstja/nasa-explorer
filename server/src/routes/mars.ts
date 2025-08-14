@@ -17,14 +17,14 @@ const PhotosQuery = z.object({
   })
 });
 
-router.get('/photos', validate(PhotosQuery), async (req, res, next) => {
+router.get('/', validate(PhotosQuery), async (req, res, next) => {
   const { rover, earth_date, sol, camera, page } = (req as any).validated.query as any;
   const key = `mars:${rover}:${earth_date ?? sol ?? 'latest'}:${camera ?? 'all'}:${page ?? 1}`;
   try {
-    const payload = await withCache(key, () =>
+    const data = await withCache(key, () =>
       nasaFetch<any>(urls.marsPhotos(rover), { searchParams: { earth_date, sol, camera, page } })
     );
-    res.json({ ok: true, data: payload.photos ?? [] });
+    res.json(data);
   } catch (e) {
     next(e);
   }

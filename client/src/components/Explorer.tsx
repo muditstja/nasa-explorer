@@ -47,12 +47,11 @@ export default function Explorer(){
           </div>
         </div>
         <div className="kpi-grid" style={{marginTop:16}}>
-          <KpiCard title="NEOs in window" value={formatNumbers(neoAgg.count)} error={neoErr} icon="☄️"/>
-          <KpiCard title="Avg NEOs / day" value={neoAgg.avgPerDay.toFixed(1)} />
+          <KpiCard title="NEOs in date range" value={formatNumbers(neoAgg.count)} error={neoErr} icon="☄️"/>
+          <KpiCard title="Avg NEOs per day" value={neoAgg.avgPerDay.toFixed(1)} />
           <KpiCard title="Avg miss distance" sub="kilometers" value={formatNumbers(Math.round(neoAgg.avgMissKm))} />
           <KpiCard title="Avg velocity" sub="km/h" value={formatNumbers(Math.round(neoAgg.avgVel))} />
           <KpiCard title="Earth events (EONET)" value={formatNumbers(eonetCount)} error={eonetErr} icon="🪐"/>
-          {/* <Sparkline title="NEOs by day" series={neoSeries} labels={enumerateDays(start, end)} /> */}
         </div>
       </div>
 

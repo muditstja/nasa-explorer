@@ -4,14 +4,14 @@ import Donki from './features/Donki'
 import TechTransfer from './features/TechTransfer'
 
 export default function App(){
-  const [tab, setTab] = useState<'explorer'|'donki'|'tech'>('explorer')
+  const [tab, setTab] = useState<'explorer'|'DONKI'|'Tech Transfers'>('explorer')
   useCelestialBackground()
   return (
     <div className="container space-y">
       <header className="header">
         <h1 className="logo">🚀 NASA Explorer</h1>
         <nav className="tabs" role="tablist">
-          {(['explorer','donki','tech'] as const).map(t=> (
+          {(['explorer','DONKI','Tech Transfers'] as const).map(t=> (
             <button key={t} className={`tab ${tab===t?'active':''}`} onClick={()=>setTab(t)} role="tab">
               {t[0].toUpperCase()+t.slice(1)}
             </button>
@@ -20,8 +20,8 @@ export default function App(){
       </header>
 
       {tab==='explorer' && <Explorer/>}
-      {tab==='donki' && <Donki/>}
-      {tab==='tech' && <TechTransfer/>}
+      {tab==='DONKI' && <Donki/>}
+      {tab==='Tech Transfers' && <TechTransfer/>}
 
       <footer className="footer muted">
         Bounce Insight assignment!

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import api from '../lib/api'
+import {fetchNEO} from '../lib/api'
 
 type NEO = any
 
@@ -33,8 +33,7 @@ export default function NeoOrbit(){
 
   const q = useQuery({
     queryKey:['neo',start,end],
-    queryFn: async()=> (await api.get(`/neo?start_date=${start}&end_date=${end}`)).data,
-  })
+    queryFn: async()=> (await fetchNEO(start, end))  })
 
   const objects: NEO[] = useMemo(()=>{
     const rows = (q.data?.objects||[]) as NEO[]

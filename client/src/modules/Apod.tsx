@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import api from '../lib/api'
+import {fetchAPOD} from '../lib/api'
 
-export default function Apod(){
+export default function Apod() {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
-  const q = useQuery({ queryKey:['apod', date], queryFn: async()=> (await api.get(`/apod?date=${date}`)).data })
+  const q = useQuery({ queryKey:['apod', date], queryFn: async() => (await fetchAPOD(date))})
   return (
     <section className="card">
       <div className="row" style={{justifyContent:'space-between'}}>

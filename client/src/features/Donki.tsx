@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
-import api from '../lib/api'
+import {fetchDonki} from '../lib/api'
 
 export default function Donki(){
-  const q = useQuery({ queryKey:['donki'], queryFn: async()=> (await api.get('/donki?days=7&type=ALL')).data })
+  const q = useQuery({ queryKey:['donki'], queryFn: async()=> (await fetchDonki()) })
   return (
     <section className="card">
-      <h3>DONKI Alerts</h3>
+      <h3 style={{ margin: 0 }}>DONKI Alerts</h3>
+      <p className='sub'>Space Weather Database Of Notifications, Knowledge, Information (DONKI)</p>
       {q.isLoading && <div className="skeleton" style={{height:180}}/>}
       {q.isError && <div className="muted">Failed to load.</div>}
       <div className="grid g2">

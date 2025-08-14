@@ -1,2 +1,31 @@
 import axios from 'axios'
-export default axios.create({ baseURL: 'http://localhost:8080/api', timeout: 20000 })
+
+const api = axios.create({
+  baseURL: 'http://localhost:8080',
+  timeout: 12000
+})
+
+export async function fetchAPOD(date: string) {
+  const { data } = await api.get(`/api/apod?date=${date}`)
+  return data
+}
+
+export async function fetchNEO(startDate: string, endDate: string) {
+  const { data } = await api.get('/api/neo', { params: { start_date: startDate, end_date: endDate } })
+  return data
+}
+
+export async function fetchMars(params: any) {
+  const { data } = await api.get('/api/mars', { params: params })
+  return data
+}
+
+export async function fetchDonki() {
+    const {data} = await api.get('/api/donki?days=7&type=ALL')
+    return data;
+}
+
+export async function fetchTechTransfer(category: string, query: string, page = 1) {
+    const {data} = await api.get(`/api/tech?cat=${category}&q=${encodeURIComponent(query)}&page=${page}`)
+    return data;
+}

@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import api from '../lib/api'
+import {fetchTechTransfer} from '../lib/api'
 
 export default function TechTransfer(){
   const [q,setQ] = useState('')
   const [cat,setCat] = useState<'patent'|'software'|'spinoff'>('patent')
-  const query = useQuery({ queryKey:['tech',cat,q], queryFn: async()=> (await api.get(`/tech?cat=${cat}&q=${encodeURIComponent(q)}&page=1`)).data })
+  const query = useQuery({ queryKey:['tech',cat,q], queryFn: async()=> (await fetchTechTransfer(cat, q)) })
   return (
     <section className="card">
       <div className="row" style={{justifyContent:'space-between'}}>
         <div>
-          <h3 style={{ margin: 0 }}>TechTransfer</h3><p className="sub">Patents, software & spinoffs</p>
+          <h3 style={{ margin: 0 }}>Tech Transfer</h3><p className="sub">Public patents, software & spinoffs</p>
         </div>
         <div className="actions wrap">
           <label className='field margin-btm-12'>Type

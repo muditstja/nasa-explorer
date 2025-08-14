@@ -12,27 +12,29 @@ const BASE = {
   neoFeed: 'https://api.nasa.gov/neo/rest/v1/feed',
   mars: 'https://api.nasa.gov/mars-photos/api/v1',
   epic: 'https://api.nasa.gov/EPIC/api/natural',
-  library: 'https://images-api.nasa.gov'
-} as const;
+  library: 'https://images-api.nasa.gov',
+  events: 'https://eonet.gsfc.nasa.gov/api/v3'
+};
 
 export const urls = {
   apod: () => BASE.apod,
   neoFeed: () => BASE.neoFeed,
   marsPhotos: (rover: string) => `${BASE.mars}/rovers/${rover}/photos`,
   epicByDate: (date: string) => `${BASE.epic}/date/${date}`,
-  librarySearch: () => `${BASE.library}/search`
+  librarySearch: () => `${BASE.library}/search`,
+  eonentSearch: (status: string, days: number, limit: number) => `${BASE.events}/events?status=${status}&days=${days}&limit=${limit}`
 };
 
 export async function nasaFetch<T>(url: string, opts: FetchOpts = {}): Promise<T> {
   const controller = new AbortController();
   const to = setTimeout(() => controller.abort(), opts.timeoutMs ?? 10000);
 
-  const sp = new URLSearchParams();
-  sp.set('api_key', config.nasaKey);
+  const searchParams = new URLSearchParams();
+  searchParams.set('api_key', config.nasaKey);
   for (const [k, v] of Object.entries(opts.searchParams ?? {})) {
-    if (v !== undefined && v !== null && v !== '') sp.set(k, String(v));
+    if (v !== undefined && v !== null && v !== '') searchParams.set(k, String(v));
   }
-  const full = url.includes('?') ? `${url}&${sp.toString()}` : `${url}?${sp.toString()}`;
+  const full = url.includes('?') ? `${url}&${searchParams.toString()}` : `${url}?${searchParams.toString()}`;
 
   try {
     const res = await fetch(full, {

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import api from '../lib/api'
+import {fetchMars} from '../lib/api'
 import { useState } from 'react'
 
 // export default function Mars() {
@@ -35,8 +35,7 @@ export default function Mars() {
 
   const q = useQuery({
     queryKey: ['mars', rover, camera, mode, date, sol],
-    queryFn: async () => (await api.get(`/mars?${params.toString()}`)).data
-  })
+    queryFn: async () => (await fetchMars(params))  })
 
   const photos = (q.data?.photos||[]) as any[]
 
@@ -76,7 +75,10 @@ export default function Mars() {
               <input className="input" type="date" value={date} onChange={e=>setDate(e.target.value)} />
             </label>
           ) : (
+            
+            <label className="field">Number
             <input className="input" type="number" min={0} max={5000} value={sol} onChange={e=>setSol(+e.target.value)} />
+            </label>
           )}
         </div>
       </div>
