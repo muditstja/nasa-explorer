@@ -1,4 +1,6 @@
-export default function KpiCard({ title, value, sub, error, icon }:{ title:string; value:string|number; sub?:string; error?:string; icon?:string }){
+type KpiInterface = { title: string; value: string | number; sub?: string; error?: string; icon?: string };
+
+export default function KpiCard({ title, value, sub, error, icon }: KpiInterface) {
   return (
     <div className="kpi-card">
       <div className="kpi-title">{title}</div>

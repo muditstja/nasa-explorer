@@ -1,22 +1,21 @@
-import { defer, map, catchError, of, shareReplay } from "rxjs";
+import { defer, map, catchError, of, shareReplay } from 'rxjs';
+import { fetchEonet } from '../lib/api';
+
+
 export function fetchEonetEvents$(
   days: number,
-  status: "open" | "closed" | "all" = "open",
+  status: 'open' | 'closed' | 'all' = 'open',
   limit = 800
 ) {
-  return defer(async () => {
-    const url = new URL("https://eonet.gsfc.nasa.gov/api/v3/events");
-    url.searchParams.set("status", status);
-    url.searchParams.set("days", String(days));
-    url.searchParams.set("limit", String(limit));
-    const r = await fetch(url.toString());
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    return r.json();
+  return defer(async (): Promise<any> => {
+    // Call backend via the api layer
+    const res = await fetchEonet({ days, status, limit });
+    const events = Array.isArray(res) ? res : res.events ?? [];
+    return { events };
   }).pipe(
-    map((json: any) => (Array.isArray(json) ? json : json.events || [])),
     catchError((err) =>
-      of({ error: err?.message || "EONET error", events: [] } as any)
+      of({ events: [], error: err?.message || 'EONET error' } as any)
     ),
-    shareReplay(1)
+    shareReplay(1) // memoize last value for late subscribers
   );
 }

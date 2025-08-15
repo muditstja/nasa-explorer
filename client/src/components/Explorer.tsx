@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import Apod from '../modules/Apod'
 import Mars from '../modules/Mars'
 import NeoOrbit from '../modules/NeoOrbit'
-import Eonet from '../modules/Eonet'
+import Eonet from '../modules/eonet/EonetMap'
 
 import { useObservable } from '../hooks/useObservable'
 import { fetchNeoByDay$, fetchNeoFlattened$ } from '../services/neo.service'
@@ -12,7 +12,6 @@ import { neoStats } from '../helpers/neo'
 import { formatNumbers } from '../helpers/number'
 
 import KpiCard from './KpiCard'
-// import Sparkline from './Sparkline'
 
 export default function Explorer(){
   const [start, setStart] = useState<string>(()=> isoDaysAgo(6))
@@ -24,14 +23,14 @@ export default function Explorer(){
 
   const neoFlat  = useObservable<any[]>(neoFlat$, [])
   // const neoByDay = useObservable<Record<string, any[]>>(neoByDay$, {} as any)
-  const eonet    = useObservable<any>(eonet$, [])
+  const eonet = useObservable<{ events: any[]; error?: string }>(eonet$, { events: [] })
 
   const daysInRange = useMemo(()=> Math.max(1, diffDays(start, end)+1), [start, end])
   const neoAgg = useMemo(()=> neoStats(neoFlat, daysInRange), [neoFlat, daysInRange])
   // const neoSeries = useMemo(()=> enumerateDays(start, end).map(d => neoByDay[d]?.length || 0), [neoByDay, start, end])
   const neoErr = useMemo(()=> (neoFlat as any)?.error ? String((neoFlat as any).error) : '', [neoFlat])
-  const eonetErr = useMemo(()=> (eonet as any)?.error ? String((eonet as any).error) : '', [eonet])
-  const eonetCount = useMemo(()=> Array.isArray(eonet) ? eonet.length : 0, [eonet])
+  const eonetErr = useMemo(() => eonet?.error ? String(eonet.error) : '', [eonet])
+  const eonetCount = useMemo(() => eonet?.events?.length ?? 0, [eonet])
 
   return (
     <section id="pane-explorer" className="pane active slide-in" role="tabpanel" aria-labelledby="Explorer">

@@ -1,0 +1,27 @@
+/* Prevent tooltips from being clipped inside cards */
+.eonet-card { position: relative; overflow: visible; }
+
+/* Map container sizing */
+.eonet-map-wrap { position: relative; height: 560px; }
+.eonet-map { height: 100%; width: 100%; }
+
+/* Simple loading skeleton overlay */
+.eonet-skeleton {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 37%, rgba(255,255,255,0.06) 63%);
+  background-size: 400% 100%;
+  animation: eonet-shimmer 1.2s infinite;
+  z-index: 2;
+}
+
+@keyframes eonet-shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: 0 0; }
+}
+
+/* Leaflet tooltip should float over everything */
+.leaflet-tooltip {
+  z-index: 9999 !important;
+}
