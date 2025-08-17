@@ -1,0 +1,29 @@
+# render.yaml
+services:
+  - type: web
+    name: nasa-explorer
+    env: docker                      # use your Dockerfile
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /healthz
+    # Optional: pick a region (defaults to nearest)
+    # region: oregon
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "8080"               # your app should also read process.env.PORT
+      - key: NASA_API_KEY
+        sync: false                  # set in dashboard/Secrets or via CLI
+      - key: ALLOWED_ORIGINS
+        value: https://nasa-explorer.onrender.com
+      - key: REDIS_URL               # comes from the redis service below
+        fromService:
+          type: redis
+          name: nasa-explorer-redis
+          property: connectionString
+
+  - type: redis
+    name: nasa-explorer-redis
+    plan: free
+    ipAllowList: []                  # empty = no public access (web service can still connect)

@@ -1,4 +1,5 @@
 export type SuccessEnvelope<T> = { ok: true; data: T };
+
 export type ErrorEnvelope = {
   ok: false;
   status: number;

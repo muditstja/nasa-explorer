@@ -7,7 +7,7 @@ module.exports = {
         exec_mode: 'cluster',
         env: {
           NODE_ENV: 'production',
-          PORT: process.env.PORT || 8787,
+          PORT: process.env.PORT || 8080,
           NASA_API_KEY: process.env.NASA_API_KEY,
           ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS || '',
           CACHE_TTL_SECONDS: process.env.CACHE_TTL_SECONDS || 900,
