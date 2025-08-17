@@ -41,7 +41,7 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapi, { explorer: true }));
 // Health
 app.get('/healthz', (_req, res) => res.json({ ok: true, name: 'nasa-explorer-api', status: 'healthy' }));
 
-// API
+// APIs
 app.use('/api/apod', apod);
 app.use('/api/neo', neo);
 app.use('/api/mars', mars);

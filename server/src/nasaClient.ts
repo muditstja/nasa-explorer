@@ -9,12 +9,7 @@ type FetchOpts = {
 
 const BASE = {
   nasaApi: 'https://api.nasa.gov',
-  // apod: 'https://api.nasa.gov/planetary/apod',
-  // neoFeed: 'https://api.nasa.gov/neo/rest/v1/feed',
-  // mars: 'https://api.nasa.gov/mars-photos/api/v1',
-  events: 'https://eonet.gsfc.nasa.gov/api/v3',
-  // donki: 'https://api.nasa.gov/DONKI',
-  // techTransfer: 'https://api.nasa.gov/techtransfer'
+  events: 'https://eonet.gsfc.nasa.gov/api/v3'
 };
 
 export const urls = {

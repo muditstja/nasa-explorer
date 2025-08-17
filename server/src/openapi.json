@@ -1,61 +1,198 @@
 {
-    "openapi": "3.0.3",
-    "info": { "title": "NASA Explorer API", "version": "1.0.0" },
-    "servers": [{ "url": "/" }],
-    "paths": {
-      "/api/apod": {
-        "get": {
-          "summary": "Astronomy Picture of the Day",
-          "parameters": [
-            { "name": "date", "in": "query", "schema": { "type": "string", "example": "2025-08-10" } },
-            { "name": "hd", "in": "query", "schema": { "type": "boolean" } }
-          ],
-          "responses": { "200": { "description": "OK" } }
+  "openapi": "3.0.3",
+  "info": { "title": "NASA Explorer API", "version": "1.0.0" },
+  "servers": [{ "url": "/" }],
+  "paths": {
+    "/api/apod": {
+      "get": {
+        "summary": "Astronomy Picture of the Day",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "ISO date (YYYY-MM-DD)",
+            "schema": { "type": "string", "example": "2025-08-10" }
+          },
+          {
+            "name": "hd",
+            "in": "query",
+            "description": "Return HD image if available",
+            "schema": { "type": "boolean", "example": false }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Validation error" },
+          "502": { "description": "Upstream NASA error" }
         }
-      },
-      "/api/neo/stats": {
-        "get": {
-          "summary": "NEO stats for charts",
-          "parameters": [
-            { "name": "start", "in": "query", "required": true, "schema": { "type": "string", "example": "2025-08-05" } },
-            { "name": "end", "in": "query", "schema": { "type": "string", "example": "2025-08-12" } }
-          ],
-          "responses": { "200": { "description": "OK" } }
+      }
+    },
+
+    "/api/neo": {
+      "get": {
+        "summary": "NEO derived stats for charts",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "description": "Start date (YYYY-MM-DD)",
+            "schema": { "type": "string", "example": "2025-08-05" }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "description": "End date (YYYY-MM-DD). If omitted, backend may use start_date or latest.",
+            "schema": { "type": "string", "example": "2025-08-12" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Validation error" },
+          "502": { "description": "Upstream NASA error" }
         }
-      },
-      "/api/mars/photos": {
-        "get": {
-          "summary": "Mars rover photos",
-          "parameters": [
-            { "name": "rover", "in": "query", "schema": { "type": "string", "enum": ["curiosity","opportunity","spirit"], "default": "curiosity" } },
-            { "name": "earth_date", "in": "query", "schema": { "type": "string" } },
-            { "name": "sol", "in": "query", "schema": { "type": "string" } },
-            { "name": "camera", "in": "query", "schema": { "type": "string" } },
-            { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } }
-          ],
-          "responses": { "200": { "description": "OK" } }
+      }
+    },
+
+    "/api/mars": {
+      "get": {
+        "summary": "Mars Rover Photos",
+        "description": "Proxy + cache for NASA Mars rover photos (Curiosity, Opportunity, Spirit).",
+        "parameters": [
+          {
+            "name": "rover",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["curiosity", "opportunity", "spirit"],
+              "default": "curiosity"
+            }
+          },
+          { "name": "earth_date", "in": "query", "schema": { "type": "string", "example": "2016-06-03" } },
+          { "name": "sol", "in": "query", "schema": { "type": "string", "example": "1000" } },
+          { "name": "camera", "in": "query", "schema": { "type": "string", "example": "NAVCAM" } },
+          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1, "minimum": 1 } }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Validation error" },
+          "502": { "description": "Upstream NASA error" }
         }
-      },
-      "/api/epic": {
-        "get": {
-          "summary": "EPIC images by date",
-          "parameters": [
-            { "name": "date", "in": "query", "required": true, "schema": { "type": "string", "example": "2025-08-11" } }
-          ],
-          "responses": { "200": { "description": "OK" } }
+      }
+    },
+
+    "/api/events": {
+      "get": {
+        "summary": "EONET events",
+        "description": "Fetches Earth events from NASA EONET.",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": { "type": "string", "enum": ["open", "closed", "all"], "default": "open" }
+          },
+          {
+            "name": "days",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1, "example": 30 },
+            "required": false
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1, "example": 200 },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Validation error" },
+          "502": { "description": "Upstream EONET error" }
         }
-      },
-      "/api/library/search": {
-        "get": {
-          "summary": "NASA Image and Video Library search",
-          "parameters": [
-            { "name": "q", "in": "query", "required": true, "schema": { "type": "string", "example": "nebula" } },
-            { "name": "media_type", "in": "query", "schema": { "type": "string", "example": "image" } },
-            { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } }
-          ],
-          "responses": { "200": { "description": "OK" } }
+      }
+    },
+
+    "/api/donki": {
+      "get": {
+        "summary": "DONKI notifications",
+        "description": "Space-weather notifications (CME, FLR, GST, etc.).",
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "example": "2025-08-01" }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "example": "2025-08-17" }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "description": "Notification type (e.g., ALL, CME, FLR, GST, HSS, RBE, SEP, IPS, MPC).",
+            "schema": { "type": "string", "example": "ALL" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Validation error" },
+          "502": { "description": "Upstream NASA DONKI error" }
+        }
+      }
+    },
+
+    "/api/tech": {
+      "get": {
+        "summary": "TechTransfer search",
+        "description": "Search NASA TechTransfer by category (patent/software/spinoff).",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "example": "patent" }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "example": "aerospace" }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "description": "Page number (string per Zod; backend coerces).",
+            "schema": { "type": "string", "example": "1" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "400": { "description": "Validation error" },
+          "502": { "description": "Upstream TechTransfer error" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string" },
+          "code": { "type": "string", "example": "BAD_REQUEST" },
+          "details": {
+            "type": "array",
+            "items": { "type": "object" },
+            "description": "Zod validation issues (if any)"
+          }
         }
       }
     }
   }
-  
+}
