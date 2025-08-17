@@ -7,11 +7,12 @@ import rateLimit from 'express-rate-limit';
 import pinoHttp from 'pino-http';
 import { logger } from './logger';
 import { config } from './config';
-import apod from './routes/apod';
-import neo from './routes/neo';
-import mars from './routes/mars';
-import epic from './routes/epic';
-import eonet from './routes/eonet';
+import apod from './routes/apod.route';
+import neo from './routes/neo.route';
+import mars from './routes/mars.route';
+import eonet from './routes/eonet.route';
+import donki from './routes/donki.route';
+import techTransfer from './routes/techTransfer.route';
 import { errorHandler, notFound } from './middleware/errors';
 import swaggerUi from 'swagger-ui-express';
 import openapi from './openapi.json';
@@ -44,14 +45,9 @@ app.get('/healthz', (_req, res) => res.json({ ok: true, name: 'nasa-explorer-api
 app.use('/api/apod', apod);
 app.use('/api/neo', neo);
 app.use('/api/mars', mars);
-// app.use('/api/epic', epic);
 app.use('/api/events', eonet);
-
-// Static client (built into server/build)
-// const __dirname = path.dirname(fileURLToPath(import.meta.url))
-// const buildPath = path.resolve(__dirname, '../build')
-// app.use(express.static(buildPath))
-// app.get('*', (_req, res) => res.sendFile(path.join(buildPath, 'index.html')))
+app.use('/api/donki', donki);
+app.use('/api/tech', techTransfer);
 
 const clientBuildPath = path.resolve(__dirname, '../build'); 
 
@@ -60,7 +56,7 @@ app.use(express.static(clientBuildPath, { index: false }));
 
 // SPA fallback: only for non-API routes
 app.get(/^\/(?!api\/).*/, (_req, res, next) => {
-  console.log('******************** build path = ', clientBuildPath);
+  console.log('******************** build path = ', clientBuildPath)
   const indexFile = path.join(clientBuildPath, 'index.html');
   console.log('---------------------------- indexFile = ', indexFile);
   res.sendFile(indexFile, (err) => {

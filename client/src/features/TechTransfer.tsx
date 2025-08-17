@@ -5,7 +5,8 @@ import {fetchTechTransfer} from '../lib/api'
 export default function TechTransfer(){
   const [q,setQ] = useState('')
   const [cat,setCat] = useState<'patent'|'software'|'spinoff'>('patent')
-  const query = useQuery({ queryKey:['tech',cat,q], queryFn: async()=> (await fetchTechTransfer(cat, q)) })
+  const query = useQuery({ queryKey:['tech', cat, q], queryFn: async()=> (await fetchTechTransfer(cat, q)) });
+
   return (
     <section className="card">
       <div className="row" style={{justifyContent:'space-between'}}>

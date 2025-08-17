@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
+import { getTodayAndSevenDaysAgo } from '../helpers/date';
 
 const api = axios.create({
   baseURL: 'http://localhost:8080',
@@ -26,11 +27,12 @@ export async function fetchEonet(params: any) {
 }
 
 export async function fetchDonki() {
-    const {data} = await api.get('/api/donki?days=7&type=ALL')
-    return data;
+  const { today, sevenDaysAgo } = getTodayAndSevenDaysAgo();
+  const {data} = await api.get(`/api/donki?start_date=${sevenDaysAgo}&end_date=${today}&type=ALL`)
+  return data;
 }
 
 export async function fetchTechTransfer(category: string, query: string, page = 1) {
-    const {data} = await api.get(`/api/tech?cat=${category}&q=${encodeURIComponent(query)}&page=${page}`)
+    const {data} = await api.get(`/api/tech?category=${category}&query=${encodeURIComponent(query)}&page=${page}`)
     return data;
 }

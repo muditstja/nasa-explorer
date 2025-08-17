@@ -8,21 +8,22 @@ type FetchOpts = {
 };
 
 const BASE = {
-  apod: 'https://api.nasa.gov/planetary/apod',
-  neoFeed: 'https://api.nasa.gov/neo/rest/v1/feed',
-  mars: 'https://api.nasa.gov/mars-photos/api/v1',
-  epic: 'https://api.nasa.gov/EPIC/api/natural',
-  library: 'https://images-api.nasa.gov',
-  events: 'https://eonet.gsfc.nasa.gov/api/v3'
+  nasaApi: 'https://api.nasa.gov',
+  // apod: 'https://api.nasa.gov/planetary/apod',
+  // neoFeed: 'https://api.nasa.gov/neo/rest/v1/feed',
+  // mars: 'https://api.nasa.gov/mars-photos/api/v1',
+  events: 'https://eonet.gsfc.nasa.gov/api/v3',
+  // donki: 'https://api.nasa.gov/DONKI',
+  // techTransfer: 'https://api.nasa.gov/techtransfer'
 };
 
 export const urls = {
-  apod: () => BASE.apod,
-  neoFeed: () => BASE.neoFeed,
-  marsPhotos: (rover: string) => `${BASE.mars}/rovers/${rover}/photos`,
-  epicByDate: (date: string) => `${BASE.epic}/date/${date}`,
-  librarySearch: () => `${BASE.library}/search`,
-  eonetSearch: (status: string, days: number, limit: number) => `${BASE.events}/events?status=${status}&days=${days}&limit=${limit}`
+  apod: () => `${BASE.nasaApi}/planetary/apod`,
+  neoFeed: () => `${BASE.nasaApi}/neo/rest/v1/feed`,
+  marsPhotos: (rover: string) => `${BASE.nasaApi}/mars-photos/api/v1/rovers/${rover}/photos`,
+  eonetSearch: (status: string, days: number, limit: number) => `${BASE.events}/events?status=${status}&days=${days}&limit=${limit}`,
+  donkiFetch: () => `${BASE.nasaApi}/DONKI/notifications`,
+  techTransferFetch: (category: string) => `${BASE.nasaApi}/techtransfer/${category}/`
 };
 
 export async function nasaFetch<T>(url: string, opts: FetchOpts = {}): Promise<T> {
