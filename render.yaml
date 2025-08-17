@@ -2,17 +2,16 @@
 services:
   - type: web
     name: nasa-explorer
-    env: docker                      # use your Dockerfile
+    env: docker                    
     plan: free
     autoDeploy: true
     healthCheckPath: /healthz
-    # Optional: pick a region (defaults to nearest)
-    # region: oregon
+    
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: "8080"               # your app should also read process.env.PORT
+        value: "8080"               
       - key: NASA_API_KEY
         sync: false                  # set in dashboard/Secrets or via CLI
       - key: ALLOWED_ORIGINS
