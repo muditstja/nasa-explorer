@@ -24,7 +24,7 @@ router.get('/', validate(Query), async (req, res, next) => {
       nasaFetch<any>(urls.apod(), { searchParams: { date } })
     );
 
-    res.json({ ok: true, data });
+    res.json(data);
   } catch (e) {
     next(e);
   }

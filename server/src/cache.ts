@@ -1,5 +1,5 @@
 import IORedis from 'ioredis';
-import LRU from 'lru-cache';
+import  { LRUCache } from 'lru-cache';
 import { config } from './config';
 
 const useRedis = !!process.env.REDIS_URL;
@@ -10,7 +10,7 @@ if (useRedis) {
   redis.on('error', (e: any) => console.error('[redis] error', e));
 }
 
-const memory = new LRU<string, string>({ max: 1000, ttl: config.cacheTtl * 1000 });
+const memory = new LRUCache<string, string>({ max: 1000, ttl: config.cacheTtl * 1000 });
 
 export async function cacheGet(key: string): Promise<string | null> {
   if (redis) {

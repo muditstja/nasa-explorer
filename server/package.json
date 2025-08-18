@@ -25,6 +25,7 @@
         "express-rate-limit": "^7.4.0",
         "helmet": "^7.1.0",
         "ioredis": "^5.4.1",
+        "lru-cache": "^11.1.0",
         "pino": "^9.2.0",
         "pino-http": "^9.0.0",
         "swagger-ui-express": "^5.0.0",
