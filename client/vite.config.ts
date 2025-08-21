@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
-    proxy: { '/api': { target: 'http://localhost:8080', changeOrigin: true } }
+    proxy: { '/api': { target: 'https://nasa-explorer-l5v6.onrender.com', changeOrigin: true } }
   },
   build: { outDir: '../server/build', emptyOutDir: true }
 })

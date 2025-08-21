@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getTodayAndSevenDaysAgo } from '../helpers/date';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'https://nasa-explorer-l5v6.onrender.com',
   timeout: 12000
 })
 
