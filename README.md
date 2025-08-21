@@ -154,7 +154,7 @@ Main routes:
 
 **Backend**:
 - Express + TypeScript
-- Zod (validation)
+- Zod (API request parameter runtime validation)
 - Redis (caching)
 - Pino (logging)
 - PM2 (process manager)

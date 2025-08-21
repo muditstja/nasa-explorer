@@ -9,7 +9,7 @@ import { logger } from './logger';
 import { config } from './config';
 import apod from './routes/apod.route';
 import neo from './routes/neo.route';
-import mars from './routes/mars.route';
+import mars from './routes/marsRover.route';
 import eonet from './routes/eonet.route';
 import donki from './routes/donki.route';
 import techTransfer from './routes/techTransfer.route';
