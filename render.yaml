@@ -20,7 +20,7 @@ services:
         fromService:
           type: redis
           name: nasa-explorer-redis
-          property: redis://red-d2gjv9ggjchc73b81v80:6379
+          property: connectionString
 
   - type: redis
     name: nasa-explorer-redis

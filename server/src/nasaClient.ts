@@ -1,11 +1,6 @@
 import { config } from './config';
+import { FetchOpts } from './interface/types';
 
-type FetchOpts = {
-  searchParams?: Record<string, string | number | boolean | undefined>;
-  signal?: AbortSignal;
-  headers?: Record<string, string>;
-  timeoutMs?: number;
-};
 
 const BASE = {
   nasaApi: 'https://api.nasa.gov',

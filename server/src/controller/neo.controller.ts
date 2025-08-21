@@ -1,18 +1,8 @@
 import type { Request, Response, NextFunction } from 'express';
 import { withCache } from '../cache';
 import { nasaFetch, urls } from '../nasaClient';
+import { NeoObject } from '../interface/types';
 
-type NeoObject = {
-  close_approach_data?: Array<{
-    miss_distance?: { kilometers?: string };
-    relative_velocity?: { kilometers_per_hour?: string };
-    close_approach_date?: string;
-    close_approach_date_full?: string;
-  }>;
-  estimated_diameter?: {
-    meters?: { estimated_diameter_min?: number; estimated_diameter_max?: number };
-  };
-};
 
 export async function getNeoStats(req: Request, res: Response, next: NextFunction) {
   const { start_date, end_date } = (req as any).validated.query as { start_date: string; end_date?: string };
