@@ -1,21 +1,4 @@
-
-export type EonetGeometry = {
-  date: string;
-  type: 'Point' | 'Polygon' | 'MultiPolygon' | string;
-  coordinates: any;
-};
-
-export type EonetCategory = { id: number | string; title: string };
-
-export type EonetEvent = {
-  id: string;
-  title: string;
-  description?: string;
-  link?: string;
-  closed?: string | null;
-  categories: EonetCategory[];
-  geometry: EonetGeometry[];
-};
+import { EonetGeometry } from "interfaces/nasaExplorer.interface";
 
 /** Safely normalize a geometry to [lat, lon] for map pins. */
 export function toLatLon(geom?: EonetGeometry): [number, number] | null {
@@ -51,14 +34,14 @@ export function toLatLon(geom?: EonetGeometry): [number, number] | null {
 
 /** Category → color mapping */
 export function colorForCategory(title: string): string {
-  const t = (title || '').toLowerCase();
-  if (t.includes('wild')) return '#ef4444';
-  if (t.includes('storm') || t.includes('severe')) return '#60a5fa';
-  if (t.includes('volcano')) return '#f59e0b';
-  if (t.includes('flood')) return '#22c55e';
-  if (t.includes('dust') || t.includes('haze')) return '#a78bfa';
-  if (t.includes('snow') || t.includes('ice')) return '#93c5fd';
-  if (t.includes('earthquake')) return '#fb7185';
+  const optionTitle = (title || '').toLowerCase();
+  if (optionTitle.includes('wild')) return '#ef4444';
+  if (optionTitle.includes('storm') || optionTitle.includes('severe')) return '#60a5fa';
+  if (optionTitle.includes('volcano')) return '#f59e0b';
+  if (optionTitle.includes('flood')) return '#22c55e';
+  if (optionTitle.includes('dust') || optionTitle.includes('haze')) return '#a78bfa';
+  if (optionTitle.includes('snow') || optionTitle.includes('ice')) return '#93c5fd';
+  if (optionTitle.includes('earthquake')) return '#fb7185';
   return '#8bd3ff';
 }
 

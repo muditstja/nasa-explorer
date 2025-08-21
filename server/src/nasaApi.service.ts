@@ -1,5 +1,5 @@
 import { config } from './config';
-import { FetchOpts } from './interface/types';
+import { FetchOpts } from './interfaces/types';
 
 
 const BASE = {

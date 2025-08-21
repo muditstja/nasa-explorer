@@ -1,36 +1,32 @@
 import { useMemo, useState } from 'react'
 import Apod from '../modules/Apod'
 import Mars from '../modules/Mars'
-import NeoOrbit from '../modules/NeoOrbit'
+import NeoOrbit from '../modules/neoOrbit/NeoOrbit'
 import Eonet from '../modules/eonet/EonetMap'
 
 import { useObservable } from '../hooks/useObservable'
-import { fetchNeoByDay$, fetchNeoFlattened$ } from '../services/neo.service'
+import { fetchNeoFlattened$ } from '../services/neo.service'
 import { fetchEonetEvents$ } from '../services/eonet.service'
-import { diffDays, isoDaysAgo } from '../helpers/date'
-import { neoStats } from '../helpers/neo'
-import { formatNumbers } from '../helpers/number'
+import { diffDays, formatNumbers, isoDaysAgo } from '../helpers/date.helper'
+import { neoStats } from '../helpers/neo.helper'
 
-import KpiCard from './KpiCard'
+import KpiCard from '../components/KpiCard'
 
-export default function Explorer(){
-  const [start, setStart] = useState<string>(()=> isoDaysAgo(6))
-  const [end, setEnd]     = useState<string>(()=> isoDaysAgo(0))
+export default function Explorer() {
+  const [start, setStart] = useState<string>(()=> isoDaysAgo(6));
+  const [end, setEnd]     = useState<string>(()=> isoDaysAgo(0));
 
-  const neoFlat$ = useMemo(()=> fetchNeoFlattened$(start, end), [start, end])
-  // const neoByDay$= useMemo(()=> fetchNeoByDay$(start, end), [start, end])
-  const eonet$   = useMemo(()=> fetchEonetEvents$(Math.max(1, diffDays(start, end)+1), 'open', 800), [start, end])
+  const neoFlat$ = useMemo(()=> fetchNeoFlattened$(start, end), [start, end]);
+  const eonet$   = useMemo(()=> fetchEonetEvents$(Math.max(1, diffDays(start, end)+1), 'open', 800), [start, end]);
 
-  const neoFlat  = useObservable<any[]>(neoFlat$, [])
-  // const neoByDay = useObservable<Record<string, any[]>>(neoByDay$, {} as any)
-  const eonet = useObservable<{ events: any[]; error?: string }>(eonet$, { events: [] })
+  const neoFlat  = useObservable<any[]>(neoFlat$, []);
+  const eonet = useObservable<{ events: any[]; error?: string }>(eonet$, { events: [] });
 
-  const daysInRange = useMemo(()=> Math.max(1, diffDays(start, end)+1), [start, end])
-  const neoAgg = useMemo(()=> neoStats(neoFlat, daysInRange), [neoFlat, daysInRange])
-  // const neoSeries = useMemo(()=> enumerateDays(start, end).map(d => neoByDay[d]?.length || 0), [neoByDay, start, end])
-  const neoErr = useMemo(()=> (neoFlat as any)?.error ? String((neoFlat as any).error) : '', [neoFlat])
-  const eonetErr = useMemo(() => eonet?.error ? String(eonet.error) : '', [eonet])
-  const eonetCount = useMemo(() => eonet?.events?.length ?? 0, [eonet])
+  const daysInRange = useMemo(()=> Math.max(1, diffDays(start, end)+1), [start, end]);
+  const neoAgg = useMemo(()=> neoStats(neoFlat, daysInRange), [neoFlat, daysInRange]);
+  const neoErr = useMemo(()=> (neoFlat as any)?.error ? String((neoFlat as any).error) : '', [neoFlat]);
+  const eonetErr = useMemo(() => eonet?.error ? String(eonet.error) : '', [eonet]);
+  const eonetCount = useMemo(() => eonet?.events?.length ?? 0, [eonet]);
 
   return (
     <section id="pane-explorer" className="pane active slide-in" role="tabpanel" aria-labelledby="Explorer">

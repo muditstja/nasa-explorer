@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { validate } from '../middleware/validate';
-import { getApod } from '../controller/apod.controller';
+import { validate } from '../middlewares/validate';
+import { getApod } from '../controllers/apod.controller';
 
 const router = Router();
 

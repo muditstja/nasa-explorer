@@ -1,5 +1,5 @@
 import { defer, map, catchError, of, shareReplay } from 'rxjs'
-import {fetchNEO} from '../lib/api'
+import {fetchNEO} from './api.service'
 
 export function fetchNeoFeed$(start:string, end:string){
   return defer(()=> fetchNEO(start, end)).pipe(

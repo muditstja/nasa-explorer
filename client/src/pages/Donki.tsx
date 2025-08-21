@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchDonki } from "../lib/api";
+import { fetchDonki } from "../services/api.service";
 
 export default function Donki() {
   const q = useQuery({

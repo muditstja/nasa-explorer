@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
-import { withCache } from '../cache';
-import { nasaFetch, urls } from '../nasaClient';
-import { NeoObject } from '../interface/types';
+import { withCache } from '../utils/cache';
+import { nasaFetch, urls } from '../nasaApi.service';
+import { NeoObject } from '../interfaces/types';
 
 
 export async function getNeoStats(req: Request, res: Response, next: NextFunction) {

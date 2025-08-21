@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchEonet } from '../lib/api'; // existing API wrapper
-import type { EonetEvent } from '../helpers/eonet';
+import { fetchEonet } from '../services/api.service'; // existing API wrapper
+import { EonetEvent } from "interfaces/nasaExplorer.interface";
 
 /**
  * React Query hook to load EONET events from backend.

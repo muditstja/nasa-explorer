@@ -1,5 +1,5 @@
 import React from 'react';
-import { DEFAULT_CATEGORY_FILTERS, colorForCategory } from '../../helpers/eonet';
+import { DEFAULT_CATEGORY_FILTERS, colorForCategory } from '../../helpers/eonet.helper';
 
 type Props = {
   selected: string[];

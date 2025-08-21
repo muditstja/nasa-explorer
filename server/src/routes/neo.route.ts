@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { validate } from '../middleware/validate';
-import { getNeoStats } from '../controller/neo.controller';
+import { validate } from '../middlewares/validate';
+import { getNeoStats } from '../controllers/neo.controller';
 
 const router = Router();
 

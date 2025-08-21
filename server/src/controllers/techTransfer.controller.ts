@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
-import { withCache } from '../cache';
-import { nasaFetch, urls } from '../nasaClient';
+import { withCache } from '../utils/cache';
+import { nasaFetch, urls } from '../nasaApi.service';
 
 
 export async function getTechTransfer(req: Request, res: Response, next: NextFunction) {

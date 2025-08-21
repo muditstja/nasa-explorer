@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { validate } from '../middleware/validate';
-import { getTechTransfer } from '../controller/techTransfer.controller';
+import { validate } from '../middlewares/validate';
+import { getTechTransfer } from '../controllers/techTransfer.controller';
 
 const router = Router();
 

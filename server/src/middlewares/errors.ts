@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import type { ErrorEnvelope } from '../interface/types';
+import type { ErrorEnvelope } from '../interfaces/types';
 
 export function notFound(_req: Request, res: Response<ErrorEnvelope>) {
   res.status(404).json({ ok: false, status: 404, message: 'Not Found' });

@@ -1,5 +1,5 @@
 import { defer, map, catchError, of, shareReplay } from 'rxjs';
-import { fetchEonet } from '../lib/api';
+import { fetchEonet } from './api.service';
 
 
 export function fetchEonetEvents$(

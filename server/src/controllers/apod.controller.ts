@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
-import { withCache } from '../cache';
-import { nasaFetch, urls } from '../nasaClient';
+import { withCache } from '../utils/cache';
+import { nasaFetch, urls } from '../nasaApi.service';
 
 /** Utility: safely parse boolean from query strings like "true"/"1" */
 const toBool = (v: unknown) =>

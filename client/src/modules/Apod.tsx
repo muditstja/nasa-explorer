@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import {fetchAPOD} from '../lib/api'
+import {fetchAPOD} from '../services/api.service'
 
 export default function Apod() {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])

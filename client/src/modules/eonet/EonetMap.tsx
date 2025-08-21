@@ -3,12 +3,13 @@ import { MapContainer, TileLayer, CircleMarker, Tooltip } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import { useEonetEvents } from '../../hooks/useEonetEvents';
-import { toLatLon, colorForCategory, EonetEvent } from '../../helpers/eonet';
+import { toLatLon, colorForCategory } from '../../helpers/eonet.helper';
 import Controls from './Controls';
 import CategoryChips from './CategoryChips';
 import FitToPins from './FitToPins';
 
 import '../../styles/eonet.css'; // small extras (tooltip z-index, skeleton, etc.)
+import { EonetEvent } from 'interfaces/nasaExplorer.interface';
 
 type Status = 'open' | 'closed' | 'all';
 

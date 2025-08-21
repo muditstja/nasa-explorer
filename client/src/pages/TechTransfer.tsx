@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import {fetchTechTransfer} from '../lib/api'
+import {fetchTechTransfer} from '../services/api.service'
 
 export default function TechTransfer(){
   const [q,setQ] = useState('')

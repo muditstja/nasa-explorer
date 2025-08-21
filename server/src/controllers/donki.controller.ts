@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
-import { withCache } from '../cache';
-import { nasaFetch, urls } from '../nasaClient';
+import { withCache } from '../utils/cache';
+import { nasaFetch, urls } from '../nasaApi.service';
 
 export async function getDonki(req: Request, res: Response, next: NextFunction) {
   const { start_date, end_date, type } = (req as any).validated.query as { start_date: string; end_date: string; type: string };

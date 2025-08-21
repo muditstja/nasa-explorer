@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { validate } from '../middleware/validate';
-import { getEonetEvents } from '../controller/eonet.controller';
+import { validate } from '../middlewares/validate';
+import { getEonetEvents } from '../controllers/eonet.controller';
 
 const router = Router();
 

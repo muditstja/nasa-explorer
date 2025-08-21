@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { validate } from '../middleware/validate';
-import { getMarsPhotos } from '../controller/marsRover.controller';
+import { validate } from '../middlewares/validate';
+import { getMarsPhotos } from '../controllers/marsRover.controller';
 
 const router = Router();
 

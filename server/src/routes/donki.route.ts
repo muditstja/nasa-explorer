@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { validate } from '../middleware/validate';
-import { getDonki } from '../controller/donki.controller';
+import { validate } from '../middlewares/validate';
+import { getDonki } from '../controllers/donki.controller';
 
 const router = Router();
 

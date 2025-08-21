@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
-import { withCache } from '../cache';
-import { nasaFetch, urls } from '../nasaClient';
+import { withCache } from '../utils/cache';
+import { nasaFetch, urls } from '../nasaApi.service';
 
 export async function getEonetEvents(req: Request, res: Response, next: NextFunction) {
   const { status, days, limit } = (req as any).validated.query as { status: 'open' | 'closed' | 'all'; days?: number; limit?: number };

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import {fetchMars} from '../lib/api'
+import {fetchMars} from '../services/api.service'
 import { useState } from 'react'
 
 export default function Mars() {

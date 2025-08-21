@@ -1,6 +1,6 @@
 import IORedis from 'ioredis';
 import  { LRUCache } from 'lru-cache';
-import { config } from './config';
+import { config } from '../config';
 
 const useRedis = !!process.env.REDIS_URL;
 
@@ -29,13 +29,11 @@ export async function cacheSet(key: string, value: string, ttlSeconds = config.c
   memory.set(key, value, { ttl: ttlSeconds * 1000 });
 }
 
-export async function withCache<T>(
-  key: string,
-  fetcher: () => Promise<T>,
-  ttlSeconds = config.cacheTtl
-): Promise<T> {
+export async function withCache<T>(key: string, fetcher: () => Promise<T>, ttlSeconds = config.cacheTtl): Promise<T> {
   const hit = await cacheGet(key);
+
   if (hit) return JSON.parse(hit) as T;
+
   const val = await fetcher();
   await cacheSet(key, JSON.stringify(val), ttlSeconds);
   return val;

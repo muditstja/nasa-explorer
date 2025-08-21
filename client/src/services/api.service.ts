@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getTodayAndSevenDaysAgo } from '../helpers/date';
+import { getTodayAndSevenDaysAgo } from '../helpers/date.helper';
 
 const api = axios.create({
   baseURL: 'https://nasa-explorer-l5v6.onrender.com',
