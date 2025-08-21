@@ -24,29 +24,46 @@ It integrates multiple **NASA APIs** (APOD, Mars Rover Photos, NEOs, EONET Earth
 
 ```
 nasa-explorer/
-├── client/               # React + Vite + TS frontend
-│   ├── src/
-│   │   ├── modules/      # Feature-based components (Apod, Mars, Eonet, etc.)
-│   │   ├── helpers/      # Utility functions (date, number formatting, etc.)
-│   │   ├── hooks/        # Custom hooks (useObservable, etc.)
-│   │   ├── services/     # Frontend API calls (React Query)
-│   │   └── main.tsx      # App entry
-│   └── public/           # Static assets (favicon, etc.)
+├── client/ # React + Vite + TypeScript frontend
+│ ├── assets/ # Static assets
+│ ├── src/
+│ │ ├── components/ # Shared UI components
+│ │ ├── helpers/ # Utility functions
+│ │ ├── hooks/ # Custom React hooks
+│ │ ├── interfaces/ # TypeScript interfaces
+│ │ ├── layouts/ # Layout components (wrappers)
+│ │ ├── modules/ # Feature modules (Apod, Mars, NeoOrbit, etc.)
+│ │ ├── pages/ # Page-level components
+│ │ ├── services/ # Frontend API calls (React Query, etc.)
+│ │ ├── styles/ # Stylesheets
+│ │ ├── App.tsx # Root React component
+│ │ └── main.tsx # React entry point
+│ ├── index.html # HTML template
+│ ├── tsconfig.json # TypeScript config (client)
+│ └── vite.config.ts # Vite config
 │
-├── server/               # Express backend
-│   ├── src/
-│   │   ├── routes/       # API endpoints (apod, neo, mars, eonet, etc.)
-│   │   ├── middleware/   # Validation & error handling
-│   │   ├── cache/        # Redis caching helpers
-│   │   ├── logger.ts     # Pino logger
-│   │   ├── config.ts     # Env config
-│   │   └── index.ts      # Express app entry
-│   └── dist/             # Compiled output (after build)
+├── server/ # Node.js + Express backend
+│ ├── build/ # Client build copied here
+│ ├── dist/ # Compiled backend output
+│ ├── src/
+│ │ ├── controllers/ # API controllers
+│ │ ├── interfaces/ # Shared backend types
+│ │ ├── middlewares/ # Express middlewares (validation, errors, etc.)
+│ │ ├── routes/ # API routes (apod, mars, eonet, neo, donki, etc.)
+│ │ ├── utils/ # Utility functions
+│ │ ├── config.ts # Backend configuration
+│ │ ├── index.ts # Express server entry point
+│ │ └── nasaApi.service.ts # NASA API service layer
+│ ├── openapi.json # Swagger API definition
+│ └── tsconfig.json # TypeScript config (server)
 │
-├── render.yaml           # Render deployment blueprint
-├── Dockerfile            # Docker setup (multi-stage, PM2)
-├── tsconfig.json         # Shared TypeScript config
-└── README.md             # This file
+├── .env.example # Example environment variables
+├── ecosystem.config.cjs # PM2 config
+├── Dockerfile # Docker setup
+├── render.yaml # Render deployment blueprint
+├── LICENSE
+├── README.md
+└── package.json # Root package (if monorepo) or scripts
 ```
 
 ---
